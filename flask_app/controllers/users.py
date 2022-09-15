@@ -53,7 +53,7 @@ def f_user_login():
     
     if not BCRYPT.check_password_hash(user_match.password, request.form.get('password')):
         flash(u'Invalid Email/Password', 'login')
-        return redirect('/login')
+        return redirect('/')
 
     session['user_id'] = user_match.id
     session['first_name'] = user_match.first_name.capitalize()

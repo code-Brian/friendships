@@ -5,12 +5,119 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='/css/bootstrap/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/custom/style.css')}}">
     <title>Friendships</title>
 </head>
-<body>
-    <div class="container">
-        <p>Why, hello there, {{ session['first_name'] }}!</p>
-        <p><a href="/logout">Logout</a></p>
+<body class="">
+    <div class="container my-5 px-5 py-3">
+        <div class="row bg-light shadow rounded">
+            <div class="col-9">
+                <h1>FRENSHIP</h1>
+                <p>Why, hello there, {{ session['first_name'] }}!</p>
+            </div>
+            <div class="col-3 d-flex align-items-center justify-content-end">
+                <p class="m-0"><a class="btn btn-primary" href="/logout">Logout</a></p>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col bg-light shadow rounded p-3">
+                <div class="row">
+                    <h2>Friendships</h2>
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Friend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jerry</td>
+                                <td>Bill</td>
+                            </tr>
+                            <tr>
+                                <td>Dennis</td>
+                                <td>Larry</td>
+                            </tr>
+                        </tbody>
+                        <tfooter>
+                            <tr>
+                                <td class="text-muted">Last updated...</td>
+                                <td class="text-muted">15:00 PST</td>
+                            </tr>
+                        </tfooter>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col bg-light shadow rounded ms-3 p-3">
+                <div class="row mb-3">
+                    <!-- Add User form -->
+                    <div class="col">
+                        <h2>Add User</h2>
+                        <form action="#" method="post">
+                            <div class="row mb-3">
+                                <label class="col-form-label col-sm-3">First Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" name="first_name">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-form-label col-sm-3">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" name="last_name">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-form-label col-sm-3"></label>
+                                <div class="col-sm-9">
+                                    <input class="btn btn-primary my-3" type="submit" value="Add User">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Create Friendship form -->
+                    <div class="col">
+                        <h2>Create Friendship</h2>
+                        <form action="#" method="post">
+                            <div class="row mb-3 mt-3">
+                                <label class="col-sm col-form-label" for="user">User</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="user">
+                                        <option selected="">Choose a user</option>
+                                        <option value="bill">bill</option>
+                                        <option value="jim">jim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm col-form-label" for="fren">Fren</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="fren">
+                                        <option selected="">Choose a fren</option>
+                                        <option value="bill">bill</option>
+                                        <option value="jim">jim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input type="submit" class="col-sm btn btn-primary" value="Create Frenship">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
