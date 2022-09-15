@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/bootstrap/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/custom/style.css')}}">
+    <title>REGISTER | LOGIN</title>
+</head>
+<body class="bg-dark">
+    <div class="container-fluid bg-light mt-5 ">
+
+        <div class="row">
+
+            <h1 class="text-center bg-secondary p-3">Register | Login</h1>
+
+            <div class="container d-flex justify-content-around p-5">
+
+                <div class="card col-3 shadow rounded">
+                    <div class="card-header">
+                        <h2>Register</h2>
+                        {% with errors = get_flashed_messages(category_filter=["register"]) %}
+                        {% if errors %}
+                        <div class="container mt-3 mb-4">
+                        <ul class="flashes list-group col 5">
+                            {% for msg in errors %}
+                            <li class="list-group-item list-group-item-danger"> {{ msg }} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                
+                <div class="card-body">
+                    <form action="/user/register" method="post">
+                        
+                        <label class="form-label" for="first_name">First Name</label>
+                        <input class="form-control" type="text" name="first_name" value="{{ session.first_name }}">
+                        
+                        <label class="form-label" for="last_name">Last Name</label>
+                        <input class="form-control" type="text" name="last_name" value="{{ session.last_name }}">
+                        
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" type="email" name="email" value="{{ session.register_email }}">
+                        
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" name="password">
+                        
+                        <label class="form-label" for="confirm_password">Confirm Password</label>
+                        <input class="form-control" type="password" name="confirm_password">
+                        
+                        <input class="btn btn-primary mt-3" type="submit" value="Register">
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card col-3 shadow rounded">
+                <div class="card-header">
+                    <h2>Login</h2>
+                    {% with errors = get_flashed_messages(category_filter=["login"]) %}
+                    {% if errors %}
+                    <div class="container col-10 mt-3 mb-4">
+                        <ul class="flashes list-group">
+                            {% for msg in errors %}
+                            <li class="list-group-item list-group-item-danger"> {{ msg }} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                
+                <div class="card-body">
+                    <form action="/user/login" method="post">
+                        <label class="form-label" for="first_name">Email</label>
+                        <input class="form-control" type="email" name="email" value="{{ session.email }}">
+                        
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" name="password" value="">
+                        
+                        <input class="btn btn-primary mt-3" type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>
