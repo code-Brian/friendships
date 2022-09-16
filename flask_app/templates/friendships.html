@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='/css/custom/style.css')}}">
     <title>Friendships</title>
 </head>
-<body class="">
+<body>
     <div class="container my-5 px-5 py-3">
         <div class="row bg-light shadow rounded">
             <div class="col-9">
@@ -32,23 +32,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for friendship in friendships %}
                             <tr>
-                                <td>Jerry</td>
-                                <td>Bill</td>
+                                <td>{{ friendship.first_name }} {{ friendship.last_name }}</td>
+                                <td>{{ friendship.friends[0].first_name }} {{ friendship.friends[0].last_name }}</td>
                             </tr>
-                            <tr>
-                                <td>Dennis</td>
-                                <td>Larry</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                         <tfooter>
                             <tr>
-                                <td class="text-muted">Last updated...</td>
-                                <td class="text-muted">15:00 PST</td>
+                                <td class="text-muted">Most recent friendship created on...</td>
+                                <td class="text-muted">{{ created.created_at.strftime('%m-%d-%Y at %H:%M') }}</td>
                             </tr>
                         </tfooter>
                     </table>
-                </div>
+                </div>  
             </div>
 
             <div class="col bg-light shadow rounded ms-3 p-3">
@@ -56,7 +54,21 @@
                     <!-- Add User form -->
                     <div class="col">
                         <h2>Add User</h2>
-                        <form action="#" method="post">
+
+                        <!-- Flash messages form validation -->
+                        {% with errors = get_flashed_messages(category_filter=["create_user"]) %}
+                        {% if errors %}
+                        <div class="container px-3 mb-3">
+                            <ul class="flashes list-group">
+                                {% for msg in errors %}
+                                <li class="list-group-item list-group-item-danger">{{ msg }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+
+                        <form action="/user/add" method="post">
                             <div class="row mb-3">
                                 <label class="col-form-label col-sm-3">First Name</label>
                                 <div class="col-sm-9">
@@ -84,25 +96,27 @@
                     <!-- Create Friendship form -->
                     <div class="col">
                         <h2>Create Friendship</h2>
-                        <form action="#" method="post">
+                        <form action="/friend/add" method="post">
                             <div class="row mb-3 mt-3">
-                                <label class="col-sm col-form-label" for="user">User</label>
+                                <label class="col-sm col-form-label" for="user_id">User</label>
                                 <div class="col-sm-9">
-                                    <select class="form-select" name="user">
+                                    <select class="form-select" name="user_id">
                                         <option selected="">Choose a user</option>
-                                        <option value="bill">bill</option>
-                                        <option value="jim">jim</option>
+                                        {% for user in users %}
+                                        <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm col-form-label" for="fren">Fren</label>
+                                <label class="col-sm col-form-label" for="friend_id">Fren</label>
                                 <div class="col-sm-9">
-                                    <select class="form-select" name="fren">
+                                    <select class="form-select" name="friend_id">
                                         <option selected="">Choose a fren</option>
-                                        <option value="bill">bill</option>
-                                        <option value="jim">jim</option>
+                                        {% for user in users %}
+                                        <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
